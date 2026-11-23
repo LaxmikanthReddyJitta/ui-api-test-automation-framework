@@ -34,6 +34,11 @@ public class EcommerceTest {
 		ChromeOptions options = new ChromeOptions();
 				options.addArguments("--window-size=1920,1080");
 				
+				// On GitHub Actions (CI) there will be no screen, so for running headless successfully
+			    if (System.getenv("CI") != null || System.getProperty("headless", "false").equals("true")) {
+			        options.addArguments("--headless=new", "--no-sandbox", "--disable-dev-shm-usage");
+			    }
+				
 				driver= new ChromeDriver(options);
 				wait= new WebDriverWait(driver,Duration.ofSeconds(10));
 				
